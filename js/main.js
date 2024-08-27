@@ -101,6 +101,8 @@ for(let i = 0; i < posts.length; i++) {
 
 const likeButtons = document.querySelectorAll('.js-like-button');
 
+
+
 likeButtons.forEach((button, i) => {
     button.addEventListener('click', function(e) {
         e.preventDefault(); 
@@ -109,16 +111,30 @@ likeButtons.forEach((button, i) => {
 
         const likeButtonIcon = button.querySelector(".like-button__icon");
 
-        
-        likeButtonLabel.classList.add("like-button--liked");
-
-        likeButtonIcon.classList.add("like-button--liked");
-
         const likesCounter = document.getElementById(`like-counter-${i}`);
 
-        posts[i].likes++; 
+        if (likeButtonIcon.classList.contains("like-button--liked")
+            && 
+            likeButtonLabel.classList.contains("like-button--liked")) {
 
-        likesCounter.textContent = posts[i].likes; 
+            likeButtonIcon.classList.remove("like-button--liked");
+
+            likeButtonLabel.classList.remove("like-button--liked");
+
+            posts[i].likes--;
+
+            likesCounter.textContent = posts[i].likes;
+        } else {
+
+            likeButtonLabel.classList.add("like-button--liked");
+
+            likeButtonIcon.classList.add("like-button--liked");
+
+            posts[i].likes++; 
+
+            likesCounter.textContent = posts[i].likes;
+
+        }  
     });
 });
 
